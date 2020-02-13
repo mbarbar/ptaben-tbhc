@@ -1,5 +1,18 @@
 #include "aliascheck.h"
 
+// The code produced by these macros looks like:
+//   call XALIAS(...)
+//   %1 = load ...
+//   ...
+//   %n = load %n-1 !ctir
+//   call deref()
+//   %n+1 = load ...
+//   ...
+//   %n+n = load %n+n-1 !ctir
+//   call deref()
+// We then use the two values before the deref calls to
+// test the XALIAS.
+
 void deref(void) { }
 
 #define TBHC_MUSTALIAS(p, q) {\
