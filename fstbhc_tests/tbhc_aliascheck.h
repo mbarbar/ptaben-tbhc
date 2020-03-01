@@ -4,14 +4,17 @@
 //   call XALIAS(...)
 //   %1 = load ...
 //   ...
-//   %n = load %n-1 !ctir
+//   %n = load %p
+//   store ... %n-1, ...* %n !ctir !t1
 //   call deref()
 //   %n+1 = load ...
 //   ...
-//   %n+n = load %n+n-1 !ctir
+//   %n+n = load %q
+//   store ... %n+n-1, ...* %n+n !ctir !t2
 //   call deref()
-// We then use the two values before the deref calls to
-// test the XALIAS.
+// We want to test the points-to sets of %n and
+// %n+n after filtering with !t1 and !t2 respectively.
+// Clang producing ctir annotations necessary.
 
 void deref(void) { }
 
