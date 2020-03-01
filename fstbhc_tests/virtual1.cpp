@@ -16,7 +16,6 @@ public:
 
 int main(void) {
     int i, j;
-    int k, l;
 
     A *a = new A();
     // A::foo::x == &i && A::foo::y == &j
