@@ -1,15 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
-svf=$1
+f=$1
 
 if [ "$#" -ne 1 ]; then
-    echo "usage: $0 svf-binary"
+    echo "usage: $0 ll-/bc-file"
     exit 1
 fi
 
-for f in *.ll; do
-    echo "Running $svf -fstbhc $f"
-    $svf -fstbhc $f
-    echo "^^^^^ $f ^^^^^"
-    read tmp
-done
+cmd="wpa -fstbhc -stat=false $f"
+echo "Running '$cmd'"
+exec $cmd

@@ -1,13 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
-echo "Building C tests"
-for f in *.c fs_tests/*.c; do
-    echo "Building $f"
-    $CC -ctir -I. -I.. -S -emit-llvm $f
-done
+f=$1
 
-echo "Building C++ tests"
-for f in *.cpp; do
-    echo "Building $f"
-    $CXX -ctir -I. -I.. -S -emit-llvm $f
-done
+if [ "$#" -ne 1 ]; then
+    echo "usage: $0 c-/cpp-file"
+    exit 1
+fi
+
+echo "Building $f"
+if [[ "$f" == *.c ]]; then
+    clang -ctir -I. -I.. -S -emit-llvm $f
+elif [[ "$f" == *.cpp ]]; then
+    clang++ -ctir -I. -I.. -S -emit-llvm $f
+else
+    echo "usage: $0 C/C++ file"
+    exit 1
+fi
