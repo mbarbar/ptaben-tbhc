@@ -37,6 +37,9 @@ for folder in $TestFolders
     echo "#################COMPILATION LOG##############" > $COMPILELOG
 	for testscript in $TestScripts 
 	do
+        if [ "$testscript" = "testfstbhc.sh" ]; then
+            CLANGFLAG="$CLANGFLAG -ctir"
+        fi
         ### test plain c program files
 		for i in `find $folder -name '*.c'` 
 		do

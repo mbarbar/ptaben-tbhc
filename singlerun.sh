@@ -20,7 +20,6 @@ TestScripts="testwpa.sh"
 #	     testdvf.sh\
 #	     testmssa.sh"
 
-
 ### remove previous compile log
 rm -rf $COMPILELOG
 
@@ -32,6 +31,10 @@ fi
 ### start testing
 	for testscript in $TestScripts 
 	do
+        if [ "$testscript" = "testfstbhc.sh" ]; then
+            CLANGFLAG="$CLANGFLAG -ctir"
+        fi
+
         ### test plain c program files
         echo $TARGET;
         if [[ $TARGET == *.c ]]; then
